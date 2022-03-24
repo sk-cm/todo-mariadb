@@ -9,4 +9,4 @@ app.register_blueprint(tasks)
 def version():
     return "1.0"
 
-app.run(port=8080)
+app.run(host="0.0.0.0", port=8080)
