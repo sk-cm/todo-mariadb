@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Modal from 'react-modal';
 import Tasks from './Tasks';
 import AddTask from './AddTask';
@@ -23,7 +23,7 @@ export default class Dashboard extends Component {
 
     async toggleTaskStatus(task) {
         if (await this.saveTask(task)) {
-            this.forceUpdate(); 
+            this.forceUpdate();
         }
     }
 
@@ -37,7 +37,7 @@ export default class Dashboard extends Component {
         this.setState({
             isAddTaskOpen: !this.state.isAddTaskOpen
         });
-    }  
+    }
 
     async addTask(description) {
         this.toggleAddTaskModal();
@@ -46,25 +46,25 @@ export default class Dashboard extends Component {
         };
         await this.saveTask(task);
         await this.loadTasks();
-    }  
+    }
 
     async saveTask(task) {
         var res = null;
         if (task !== null && task.id > 0) {
-            res = await fetch(process.env.BACKEND + '/api/tasks',{
+            res = await fetch(process.env.REACT_APP_BACKEND + '/api/tasks', {
                 method: 'PUT',
                 body: JSON.stringify(task),
-                headers: {"Content-Type": "application/json"}
+                headers: { "Content-Type": "application/json" }
             });
             if (res.status === 200) {
                 this.loadTasks();
             }
         }
         else {
-            res = await fetch('/api/tasks',{
+            res = await fetch(process.env.REACT_APP_BACKEND + '/api/tasks', {
                 method: 'POST',
                 body: JSON.stringify(task),
-                headers: {"Content-Type": "application/json"}
+                headers: { "Content-Type": "application/json" }
             });
         }
 
@@ -77,10 +77,10 @@ export default class Dashboard extends Component {
     }
 
     async deleteTask(id) {
-        var res = await fetch(process.env.BACKEND +'/api/tasks?id=' + id,{
-                method: 'DELETE',
-                headers: {"Content-Type": "application/json"}
-            });
+        var res = await fetch(process.env.REACT_APP_BACKEND + + '/api/tasks?id=' + id, {
+            method: 'DELETE',
+            headers: { "Content-Type": "application/json" }
+        });
 
         if (res !== null && res.status === 200) {
             this.loadTasks();
@@ -91,10 +91,10 @@ export default class Dashboard extends Component {
     }
 
     async getTasks() {
-        const response = await fetch(process.env.BACKEND +'/api/tasks');
+        const response = await fetch(process.env.REACT_APP_BACKEND + + '/api/tasks');
         const body = await response.json();
         if (response.status !== 200) {
-            throw Error(body.message) 
+            throw Error(body.message)
         }
         return body;
     }
@@ -108,7 +108,7 @@ export default class Dashboard extends Component {
                     </div>
                     <Tasks tasks={this.state.tasks} toggleTaskStatus={this.toggleTaskStatus} deleteTask={this.deleteTask} />
                 </div>
-                <Modal 
+                <Modal
                     isOpen={this.state.isAddTaskOpen}
                     onRequestClose={() => this.toggleAddTaskModal(false)}
                     className="modal"
