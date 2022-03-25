@@ -91,7 +91,7 @@ export default class Dashboard extends Component {
     }
 
     async getTasks() {
-        const response = await fetch(process.env.REACT_APP_BACKEND + + '/api/tasks');
+        const response = await fetch(process.env.REACT_APP_BACKEND + '/api/tasks');
         const body = await response.json();
         if (response.status !== 200) {
             throw Error(body.message)
