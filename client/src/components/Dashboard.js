@@ -77,7 +77,7 @@ export default class Dashboard extends Component {
     }
 
     async deleteTask(id) {
-        var res = await fetch(process.env.REACT_APP_BACKEND + + '/api/tasks?id=' + id, {
+        var res = await fetch(process.env.REACT_APP_BACKEND + '/api/tasks?id=' + id, {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" }
         });
