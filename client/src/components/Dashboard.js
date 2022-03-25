@@ -51,7 +51,7 @@ export default class Dashboard extends Component {
     async saveTask(task) {
         var res = null;
         if (task !== null && task.id > 0) {
-            res = await fetch('/api/tasks',{
+            res = await fetch(process.env.BACKEND + '/api/tasks',{
                 method: 'PUT',
                 body: JSON.stringify(task),
                 headers: {"Content-Type": "application/json"}
@@ -77,7 +77,7 @@ export default class Dashboard extends Component {
     }
 
     async deleteTask(id) {
-        var res = await fetch('/api/tasks?id=' + id,{
+        var res = await fetch(process.env.BACKEND +'/api/tasks?id=' + id,{
                 method: 'DELETE',
                 headers: {"Content-Type": "application/json"}
             });
@@ -91,7 +91,7 @@ export default class Dashboard extends Component {
     }
 
     async getTasks() {
-        const response = await fetch('/api/tasks');
+        const response = await fetch(process.env.BACKEND +'/api/tasks');
         const body = await response.json();
         if (response.status !== 200) {
             throw Error(body.message) 
